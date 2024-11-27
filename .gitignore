@@ -2,3 +2,9 @@ venv/
 env/
 .idea/
 __pycache__/
+Source/*
+Target/*
+dist/
+build/
+MODS*
+*.spec

@@ -7,22 +7,20 @@ import source_data
 
 
 def create_json(lines, file):
-    context = source_data.sample_event_list
+    context = source_data.sample_static_objects
 
     for i in range(len(lines)):
         if not lines[i].startswith("SpawnObject("):
             lines[i] = ""
 
-    context.get('m_Event').append(source_data.sample_static_objects)
-
     i = 0
     for line in lines:
         if line.startswith("SpawnObject("):
             splited_line = line.split('"')
-            context.get("m_Event")[0]["StaticObjects"].append(dict(source_data.sample_mapping_data))
-            context.get("m_Event")[0]["StaticObjects"][i]["Classname"] = splited_line[1]
-            context.get("m_Event")[0]["StaticObjects"][i]["Position"] = [round(float(i), 2) for i in splited_line[3].split()]
-            context.get("m_Event")[0]["StaticObjects"][i]["Orientation"] = [round(float(i), 2) for i in splited_line[5].split()]
+            context["StaticObjects"].append(dict(source_data.sample_mapping_data))
+            context["StaticObjects"][i]["Classname"] = splited_line[1]
+            context["StaticObjects"][i]["Position"] = [round(float(i), 2) for i in splited_line[3].split()]
+            context["StaticObjects"][i]["Orientation"] = [round(float(i), 2) for i in splited_line[5].split()]
             i += 1
 
     with open(f"Target/{file}.json".replace(".txt", ""), "w", encoding="UTF-8") as json_file:
